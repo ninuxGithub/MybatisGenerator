@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hundsun.dao.UserDao">
+	<resultMap id="userModel" type="com.hundsun.model.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="basic_column">
+		id,name,password,age,address
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="userModel"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="basic_column" />
+		from tuser where id=#{id, jdbcType=INTEGER}
+	</select>
+
+	<insert id="insertUser" parameterType="com.hundsun.model.User">
+	insert into tuser
+	(id,name,age,address,password) values
+	(#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{age,jdbcType=INTEGER},#{address,jdbcType=VARCHAR},#{password,
+	jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="findAll" resultMap="userModel">
+		select * from tuser;
+	</select>
+	
+	
+	
+</mapper>
